@@ -3,7 +3,8 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 const dbConnect = require("./db/dbConnect");
-
+const authRoutes = require("./routes/authRoutes");
+const authMiddleware = require("./middlewares/authMiddleware");
 
 app.use(cors());
 
@@ -14,6 +15,18 @@ app.get("/api/status", async (req, res) => {
     message: "Server Working",
   });
 });
+
+app.use("/api/auth", authRoutes);
+
+app.use(authMiddleware);
+
+app.post('/api/check', (req, res) => {
+  const user = req.user;
+  return res.json({
+    message: "working",
+    user
+  })
+})
 
 const PORT = process.env.PORT;
 
