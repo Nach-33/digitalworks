@@ -13,6 +13,7 @@ const vehicleSchema = mongoose.Schema({
   vehicle_number: {
     type: String,
     required: true,
+    unique: true
   },
   brand: {
     type: String,
@@ -34,4 +35,4 @@ const vehicleSchema = mongoose.Schema({
 
 const vehicleModel = mongoose.model("Vehicle", vehicleSchema);
 
-module.exports = userModel;
+module.exports = vehicleModel;

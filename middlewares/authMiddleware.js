@@ -1,18 +1,30 @@
 const jwt = require("jsonwebtoken");
+const User = require("../models/userModel");
 
 const SECRET = process.env.SECRET;
 
-const authMiddleware = (req, res, next) => {
-  const { token } = req.body;
-  const {user} = jwt.verify(token, SECRET);
+const authMiddleware = async (req, res, next) => {
+  const { token } = req.headers;
+  let { user } = jwt.verify(token, SECRET);
 
-  if (!user)
+  try {
+    user = await User.findById(user._id);
+
+    if (!user) {
+      return res.json({
+        message: "authentication failed",
+      });
+    }
+
+    req.user = user;
+    next();
+    
+  } catch (error) {
+    console.log(error.message);
     return res.json({
-      message: "authentication failed",
+      message: error.message,
     });
-
-  req.user = user;
-  next();
+  }
 };
 
 module.exports = authMiddleware;
