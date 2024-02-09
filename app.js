@@ -5,6 +5,7 @@ require("dotenv").config();
 const dbConnect = require("./db/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 const vehicleRoutes = require("./routes/vehicleRoutes");
+const userRoutes = require("./routes/userRoutes");
 const authMiddleware = require("./middlewares/authMiddleware");
 
 app.use(cors());
@@ -21,15 +22,17 @@ app.use("/api/auth", authRoutes);
 
 app.use(authMiddleware);
 
-app.get('/api/check', (req, res) => {
+app.get("/api/check", (req, res) => {
   const user = req.user;
   return res.json({
     message: "working",
-    user
-  })
-})
+    user,
+  });
+});
 
-app.use("/api/vehicle", vehicleRoutes)
+app.use("/api/vehicle", vehicleRoutes);
+
+app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT;
 
