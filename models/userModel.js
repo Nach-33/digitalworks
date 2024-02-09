@@ -19,6 +19,12 @@ const userSchema = mongoose.Schema({
   },
   vehicles: [{ type: mongoose.Schema.ObjectId }, { default: [] }],
   messages: [{ type: mongoose.Schema.ObjectId }, { default: [] }],
+  image: {
+    type: String,
+  },
+  designation: {
+    type: String,
+  }
 });
 
 const userModel = mongoose.model("User", userSchema);
