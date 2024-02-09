@@ -4,11 +4,12 @@ import axios from "axios"
 import MyButton from './Elements/MyButton';
 
 function Dashboard() {
-    const [userData, setUserData] = useState({ vehicles: [] });
+    const [userData, setUserData] = useState({ vehicles: [], messages: []});
     const [vehiclesData, setVehiclesData] = useState(<></>);
+    const [messagesData, setMessagesData] = useState(<></>);
     const [navState, setNavState] = useState(0);
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YzVkZDU1YzU2ODJlODliMzZjNTcyNCIsIm5hbWUiOiJwcmVldCIsImVtYWlsIjoicHJlZXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInZlaGljbGVzIjpbXSwiX192IjowfSwiaWF0IjoxNzA3NDY2MDc0fQ._ZcSAmEqJ0BvXpYruguvoKIQCnyCeOyfBfFP3V6HOJE"
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YzYxYTk1ZGZiYjA1MjE3MWYwZGIxYyIsIm5hbWUiOiJwcmVldCIsImVtYWlsIjoicHJlZXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInZlaGljbGVzIjpbXSwibWVzc2FnZXMiOltdLCJfX3YiOjB9LCJpYXQiOjE3MDc0ODE3NTZ9.PCNzl-tNsOZsgzZLgjCZxLeef2HRCwIoXB-Ja0jBh5A"
     const url = "http://localhost:4000/api/user/";
     const getUserData = async () => {
         axios.get(url, {
@@ -33,6 +34,7 @@ function Dashboard() {
     }
 
     const populateVehicles = async () => {
+        if(!userData) return;
 
         let vehicles = []
 
@@ -47,15 +49,15 @@ function Dashboard() {
         vehicles = await Promise.all(vehicles);
 
         vehicles = vehicles.map((element, ind) => {
-            const thisVehicle = element.data.vehicle
+            const thisMessage = element.data.vehicle
             return (
-                <div className="card" id={thisVehicle._id} key={ind}>
-                    <p>Name: {thisVehicle.name}</p>
-                    <p>{thisVehicle.vehicle_number}</p>
+                <div className="card" id={thisMessage._id} key={ind}>
+                    <p>Name: {thisMessage.name}</p>
+                    <p>{thisMessage.vehicle_number}</p>
                     <span className='dashboard-car-specs'>
-                        <p>{thisVehicle.color}</p>
-                        <p>{thisVehicle.brand}</p>
-                        <p>{thisVehicle.model}</p>
+                        <p>{thisMessage.color}</p>
+                        <p>{thisMessage.brand}</p>
+                        <p>{thisMessage.model}</p>
                     </span>
                     <MyButton func={handleVehicleClick} text="Get QR" />
                 </div>
@@ -64,8 +66,34 @@ function Dashboard() {
 
         setVehiclesData(vehicles)
     }
+
+    const populateMessages = async () => {
+        if(!userData) return;
+        let messages = []
+
+        userData.messages.forEach(element => {
+            const url = "http://localhost:4000/api/message/" + element;
+            const response = axios.get(url, {
+                headers: { token }
+            })
+            messages = [...messages, response];
+        });
+
+        messages = await Promise.all(messages);
+        messages = messages.map((element, ind) => {
+            const thisMessage = element.data.message_obj
+            return (
+                <div className="card" id={thisMessage._id} key={ind}>
+                    <p>Message: {thisMessage.message_content}</p>
+                </div>
+            )
+        })
+
+        setMessagesData(messages)
+    }
     useEffect(() => {
         populateVehicles();
+        populateMessages();
     }, [userData])
 
     return (
@@ -78,7 +106,7 @@ function Dashboard() {
                 navState ?
                     <>
                         <div className="card">
-                            Messages
+                            {messagesData}
                         </div>
 
                     </>
