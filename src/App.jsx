@@ -6,6 +6,7 @@ import VehicleFormPage from './Components/VehicleFormPage';
 import ContactPage from './Components/ContactPage';
 import VehicleDetails from './Components/VehicleDetails';
 import Dashboard from './Components/Dashboard'
+import IDCard from './Components/IDCard';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route exact path='/user/add/vehicle' element={<VehicleFormPage />} />
           <Route exact path='/user/vehicle/:vehicle_id' element={<VehicleDetails />} />
           <Route exact path='/contact/:vehicle_id' element={<ContactPage />} />
+          <Route exact path='/user/id' element = {<IDCard />} />
         </Routes>
       </BrowserRouter>
     </div>
