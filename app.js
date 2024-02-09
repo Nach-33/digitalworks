@@ -10,7 +10,11 @@ const messageRoutes = require("./routes/messageRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const authMiddleware = require("./middlewares/authMiddleware");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  })
+);
 
 app.use(express.json());
 

@@ -31,7 +31,7 @@ const handleLogin = async (req, res) => {
   try {
     const user = await User.findOne(user_details);
     if (user) {
-      const token = jwt.sign({ user }, SECRET);
+      const token = jwt.sign({ user_id: user.id }, SECRET);
       return res.json({
         message: "logged in successfully",
         token,
