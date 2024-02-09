@@ -26,7 +26,7 @@ const createVehicle = async (req, res) => {
       }
     );
 
-    const code = await qrcode.toDataURL(String(created_vehicle._id));
+    const code = await qrcode.toDataURL(String("http://localhost:4000/" + created_vehicle._id));
     created_vehicle.qr_code = code;
 
     await created_vehicle.save();
