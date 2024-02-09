@@ -6,6 +6,7 @@ const dbConnect = require("./db/dbConnect");
 const authRoutes = require("./routes/authRoutes");
 const vehicleRoutes = require("./routes/vehicleRoutes");
 const userRoutes = require("./routes/userRoutes");
+const messageRoutes = require("./routes/messageRoutes");
 const authMiddleware = require("./middlewares/authMiddleware");
 
 app.use(cors());
@@ -19,6 +20,8 @@ app.get("/api/status", async (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+
+app.use("/api/message", messageRoutes);
 
 app.use(authMiddleware);
 

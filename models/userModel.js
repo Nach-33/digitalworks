@@ -17,7 +17,8 @@ const userSchema = mongoose.Schema({
     trim: true,
     required: true,
   },
-  vehicles: [{type: mongoose.Schema.ObjectId}, {default: []}],
+  vehicles: [{ type: mongoose.Schema.ObjectId }, { default: [] }],
+  messages: [{ type: mongoose.Schema.ObjectId }, { default: [] }],
 });
 
 const userModel = mongoose.model("User", userSchema);
