@@ -1,0 +1,41 @@
+#dashboard-main {
+  min-height: 100vh;
+  background-color: rgb(235, 220, 159);
+  padding: 1rem;
+}
+
+#dashboard-main .card{
+    background-color: whitesmoke;
+}
+
+#dashboard-nav {
+  display: flex;
+}
+
+.nav-item {
+  margin: 0rem 0.3rem;
+  padding: 0.3rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#dashboard-nav .active {
+    background-color: rgb(56, 54, 54);
+    color: whitesmoke;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.dashboard-car-specs{
+    display: flex;
+}
+
+#dashboard-main p{
+    font-size: 1rem;
+    margin: 0.3rem 0.5rem;
+}
+
+#dashboard-add-container{
+    margin: 0.3rem;
+    display: flex;
+    justify-content: center;
+}
