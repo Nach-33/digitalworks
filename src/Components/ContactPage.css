@@ -28,3 +28,19 @@
     margin: 0.7rem;
     padding: 0.7rem;
 }
+
+
+@media screen and (max-width: 800px) {
+    #contact-vehicle-number{
+        font-size: 1.5rem;
+        text-align: center;
+        width:80vw;
+    }
+
+    #contact-message{
+        border-radius: 5px;
+        margin: 0.7rem;
+        padding: 0.7rem;
+        max-width: 80vw;
+    }
+}
