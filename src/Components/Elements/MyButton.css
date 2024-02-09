@@ -1,0 +1,10 @@
+.btn{
+    padding: 0.7rem 1rem;
+    margin: 0.7rem;
+    font-size: 1.7rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    background-color: rgb(25, 25, 25);
+    color: whitesmoke;
+}
