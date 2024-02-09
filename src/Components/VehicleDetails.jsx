@@ -5,7 +5,7 @@ import axios from "axios"
 import qrBg from "../Assets/qr-bg.svg"
 
 function VehicleDetails() {
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YzVkZDU1YzU2ODJlODliMzZjNTcyNCIsIm5hbWUiOiJwcmVldCIsImVtYWlsIjoicHJlZXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInZlaGljbGVzIjpbXSwiX192IjowfSwiaWF0IjoxNzA3NDY2MDc0fQ._ZcSAmEqJ0BvXpYruguvoKIQCnyCeOyfBfFP3V6HOJE"
+    const token = window.localStorage.getItem("token")
     const { vehicle_id } = useParams();
     const [vehicleData, setVehicleData] = useState({})
 

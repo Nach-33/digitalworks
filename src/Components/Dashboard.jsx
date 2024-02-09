@@ -9,7 +9,7 @@ function Dashboard() {
     const [messagesData, setMessagesData] = useState(<></>);
     const [navState, setNavState] = useState(0);
 
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YzYxYTk1ZGZiYjA1MjE3MWYwZGIxYyIsIm5hbWUiOiJwcmVldCIsImVtYWlsIjoicHJlZXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInZlaGljbGVzIjpbXSwibWVzc2FnZXMiOltdLCJfX3YiOjB9LCJpYXQiOjE3MDc0ODE3NTZ9.PCNzl-tNsOZsgzZLgjCZxLeef2HRCwIoXB-Ja0jBh5A"
+    const token = localStorage.getItem('token');
     const url = "http://localhost:4000/api/user/";
     const getUserData = async () => {
         axios.get(url, {
@@ -24,10 +24,10 @@ function Dashboard() {
         });
     }
 
-    useEffect(() => {
-        getUserData();
-    }, [])
-
+    const handleAddVehicle = () => {
+        window.location.href = "/user/add/vehicle"
+    }
+    
     const handleVehicleClick = (e) => {
         console.log(e.target.parentElement.id);
         window.location.href = "user/vehicle/" + e.target.parentElement.id;
@@ -35,9 +35,9 @@ function Dashboard() {
 
     const populateVehicles = async () => {
         if(!userData) return;
-
+        
         let vehicles = []
-
+        
         userData.vehicles.forEach(element => {
             const url = "http://localhost:4000/api/vehicle/" + element;
             const response = axios.get(url, {
@@ -45,9 +45,9 @@ function Dashboard() {
             })
             vehicles = [...vehicles, response];
         });
-
+        
         vehicles = await Promise.all(vehicles);
-
+        
         vehicles = vehicles.map((element, ind) => {
             const thisMessage = element.data.vehicle
             return (
@@ -63,14 +63,14 @@ function Dashboard() {
                 </div>
             )
         })
-
+        
         setVehiclesData(vehicles)
     }
-
+    
     const populateMessages = async () => {
         if(!userData) return;
         let messages = []
-
+        
         userData.messages.forEach(element => {
             const url = "http://localhost:4000/api/message/" + element;
             const response = axios.get(url, {
@@ -88,9 +88,14 @@ function Dashboard() {
                 </div>
             )
         })
-
+        
         setMessagesData(messages)
     }
+
+    useEffect(() => {
+        getUserData();
+    }, [])
+
     useEffect(() => {
         populateVehicles();
         populateMessages();
@@ -115,7 +120,7 @@ function Dashboard() {
                         <div className="card">
                             {vehiclesData}
                             <div id='dashboard-add-container'>
-                                <MyButton text="Add Vehicle" />
+                                <MyButton text="Add Vehicle" func = {handleAddVehicle}/>
                             </div>
                         </div>
                     </>

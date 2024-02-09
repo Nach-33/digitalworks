@@ -6,8 +6,6 @@ import MyButton from './Elements/MyButton';
 
 
 function Contact() {
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Il9pZCI6IjY1YzVkZDU1YzU2ODJlODliMzZjNTcyNCIsIm5hbWUiOiJwcmVldCIsImVtYWlsIjoicHJlZXRAZ21haWwuY29tIiwicGFzc3dvcmQiOiJwYXNzd29yZCIsInZlaGljbGVzIjpbXSwiX192IjowfSwiaWF0IjoxNzA3NDY2MDc0fQ._ZcSAmEqJ0BvXpYruguvoKIQCnyCeOyfBfFP3V6HOJE"
-
   const { vehicle_id } = useParams();
   const [vehicleData, setVehicleData] = useState(0);
 
@@ -16,9 +14,8 @@ function Contact() {
   }
   
   const populateVehicleData = async () => {
-    const url = "http://localhost:4000/api/vehicle/" + vehicle_id;
+    const url = "http://localhost:4000/api/contact/" + vehicle_id;
     await axios.get(url, {
-      headers: { token }
     }).then(response => response.data.vehicle).then(data => {
       setVehicleData(data)
       console.log(data)
